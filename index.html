@@ -3,202 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Forever 💗 - Sivasingh</title>
+    <title>A Special Note For You 💗 - From Sivasingh</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@700;900&family=Playfair+Display:wght@700&display=swap');
         
         body {
-            background: #0a0014;
+            background: radial-gradient(circle at center, #1a0033 0%, #000000 100%);
             font-family: 'Nunito', sans-serif;
-            overflow: hidden; margin: 0; color: white; user-select: none;
+            overflow: hidden; margin: 0; padding: 0; color: white; user-select: none;
         }
-
-        /* Orbits / Solar System Effect */
-        .orbit-container {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 100vw; height: 100vh; z-index: 0; pointer-events: none;
-        }
-        .orbit {
-            position: absolute; top: 50%; left: 50%; border: 1px solid rgba(255,105,180,0.2);
-            border-radius: 50%; transform: translate(-50%, -50%);
-            animation: rotate linear infinite;
-        }
-        .orbit-1 { width: 300px; height: 300px; animation-duration: 10s; }
-        .orbit-2 { width: 500px; height: 500px; animation-duration: 15s; animation-direction: reverse; }
-        .orbit-3 { width: 700px; height: 700px; animation-duration: 20s; }
         
-        .orbit-heart { position: absolute; top: 0; left: 50%; font-size: 20px; }
-        @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
-
         .slide {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             align-items: center; justify-content: center; flex-direction: column;
-            z-index: 10; transition: opacity 0.5s; opacity: 0;
+            transition: opacity 0.8s ease; opacity: 0; z-index: 20;
         }
+        
         .slide.active { display: flex; opacity: 1; }
+        
+        .neon-text { text-shadow: 0 0 15px #ff00cc, 0 0 30px #ff69b4, 0 0 45px #ff1493; }
+        .signature { font-family: 'Dancing Script', cursive; color: #ff69b4; text-shadow: 0 0 20px #ff00cc; }
+        
+        .glow-button { transition: all 0.3s ease; box-shadow: 0 0 30px #ff00cc; cursor: pointer; }
+        .glow-button:hover { transform: scale(1.05); box-shadow: 0 0 50px #ff00cc; }
 
-        .gif-frame {
-            width: 250px; height: 250px; border-radius: 50%; border: 5px solid #ff00cc;
-            box-shadow: 0 0 30px #ff00cc; object-fit: cover; margin-bottom: 2rem;
+        /* ✨ GLOWING STARS BACKGROUND */
+        .star {
+            position: absolute; background: white; border-radius: 50%;
+            box-shadow: 0 0 10px white, 0 0 20px white;
+            animation: twinkle var(--duration) infinite alternate;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
         }
 
-        .glow-btn {
-            background: linear-gradient(45deg, #ff00cc, #ff69b4);
-            padding: 15px 40px; border-radius: 50px; font-weight: 900;
-            box-shadow: 0 0 20px #ff00cc; transition: 0.3s; cursor: pointer;
+        /* 🌌 SOLAR SYSTEM / ORBIT EFFECT */
+        .solar-system {
+            position: relative; width: 150px; height: 150px;
+            display: flex; align-items: center; justify-content: center; margin: 40px auto 60px auto;
+        }
+        .sun-heart {
+            font-size: 85px; z-index: 10; color: #ff00cc;
+            text-shadow: 0 0 40px #ff00cc, 0 0 80px #ff1493;
+            animation: pulseHeart 1.2s infinite alternate; transition: transform 0.5s ease;
+        }
+        @keyframes pulseHeart { 0% { transform: scale(1); } 100% { transform: scale(1.18); } }
+
+        .orbit { position: absolute; border: 1.5px dashed rgba(255, 105, 180, 0.4); border-radius: 50%; animation: spin linear infinite; }
+        .orbit-1 { width: 230px; height: 230px; animation-duration: 8s; }
+        .orbit-2 { width: 330px; height: 330px; animation-duration: 12s; animation-direction: reverse; }
+        .orbit-3 { width: 440px; height: 440px; animation-duration: 18s; }
+        .planet { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 26px; filter: drop-shadow(0 0 10px white); }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* 💗 FLOATING HEARTS */
+        .heart-float { position: absolute; animation: floatUp linear forwards; opacity: 0.7; pointer-events: none; z-index: 10; bottom: -50px; }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.9; }
+            100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
         }
 
-        /* Hold Button Animation */
-        #holdProgress { position: absolute; bottom: 0; left: 0; height: 100%; background: rgba(255,255,255,0.3); width: 0%; }
+        .gif-container { border-radius: 35px; overflow: hidden; box-shadow: 0 0 50px #ff00cc; border: 8px solid #ff69b4; object-fit: cover; }
+        #holdProgress { position: absolute; bottom: 0; left: 0; background: rgba(255, 255, 255, 0.4); width: 0%; transition: width 0.1s linear; height: 100%; }
+        .confetti { position: absolute; width: 12px; height: 12px; border-radius: 50%; z-index: 90; pointer-events: none; }
 
-        #finalVideoLayer {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: black; z-index: 100;
-        }
-        video { width: 100%; height: 100%; object-fit: cover; }
+        #videoLayer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: black; z-index: 100; align-items: center; justify-content: center; }
+        video { width: 90%; max-width: 500px; border-radius: 25px; box-shadow: 0 0 60px #ff00cc; }
     </style>
 </head>
 <body>
 
     <audio id="bgMusic" loop src="tere-liye.mp3"></audio>
-
-    <div class="orbit-container">
-        <div class="orbit orbit-1"><span class="orbit-heart">⭐</span></div>
-        <div class="orbit orbit-2"><span class="orbit-heart">💗</span></div>
-        <div class="orbit orbit-3"><span class="orbit-heart">✨</span></div>
-    </div>
+    <div id="stars-background" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></div>
+    <div id="hearts-container" class="fixed top-0 left-0 w-full h-full pointer-events-none z-5"></div>
 
     <div id="slide1" class="slide active">
-        <img src="gif1.gif" class="gif-frame">
-        <h1 class="text-5xl mb-4" style="font-family: 'Dancing Script'">Hey Cutiepie!</h1>
-        <p class="text-xl mb-8">Do you even know how cute you are?</p>
-        <div onclick="startProj()" class="glow-btn">Let's check 😍</div>
+        <div class="text-center px-6 max-w-md">
+            <img src="gif5.gif" class="w-64 h-64 mx-auto mb-8 gif-container rounded-full">
+            <h1 class="text-6xl text-pink-400 mb-4 signature">Hey Cutiepie ✨</h1>
+            <p class="text-2xl mb-12 font-bold tracking-wide">Do you even know how adorable you are?</p>
+            <button onclick="startExperience()" class="glow-button bg-pink-500 text-white text-xl font-bold py-5 px-14 rounded-full">
+                LET'S CHECK 🥺🥺
+            </button>
+            <div class="mt-16 signature text-2xl">With all my love, Sivasingh 💗</div>
+        </div>
     </div>
 
     <div id="slide2" class="slide">
-        <h1 class="text-3xl mb-8">How important are you to me?</h1>
-        <div class="relative w-64 h-64 flex items-center justify-center mb-8">
-            <div class="text-8xl animate-pulse">💖</div>
-        </div>
-        <div id="holdBtn" class="glow-btn relative overflow-hidden">
-            <div id="holdProgress"></div>
-            <span class="relative">Press and Hold to find out</span>
+        <div class="text-center px-6 max-w-md w-full">
+            <h1 class="text-4xl font-black mb-4 neon-text">How special are you to me?</h1>
+            <p class="text-gray-400 text-sm mb-10 tracking-widest uppercase font-bold">Hold the button to find out</p>
+            <div class="solar-system mb-16">
+                <div class="orbit orbit-1"></div>
+                <div class="sun-heart" id="holdHeart">💖</div>
+            </div>
+            <button id="holdBtn" class="glow-button relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xl font-bold py-5 px-16 rounded-full w-full max-w-[300px] mx-auto">
+                <div id="holdProgress"></div>
+                <span class="relative z-10 uppercase tracking-wider">Press and Hold</span>
+            </button>
         </div>
     </div>
 
     <div id="slide3" class="slide">
-        <img src="gif2.gif" class="gif-frame">
-        <h1 class="text-4xl font-black mb-4">You are my <span class="text-pink-500">Universe</span></h1>
-        <p class="text-xl px-10 text-center">You mean more to me than you'll ever know.</p>
-        <div onclick="next()" class="glow-btn mt-8">Continue...</div>
+        <div class="text-center px-6 max-w-md">
+            <div class="solar-system mb-12">
+                <div class="orbit orbit-1"><div class="planet">⭐</div></div>
+                <div class="orbit orbit-2"><div class="planet">💗</div></div>
+                <div class="orbit orbit-3"><div class="planet">✨</div></div>
+                <div class="sun-heart text-[100px]">💗</div>
+            </div>
+            <h1 class="text-5xl font-black mb-6">You are my <span class="text-pink-500">Universe</span>.</h1>
+            <p class="text-2xl font-bold mb-12 leading-relaxed">You mean more to me than words can ever express.</p>
+            <button onclick="next()" class="bg-pink-900/50 border-2 border-pink-500 text-pink-200 text-xl font-bold py-4 px-12 rounded-full shadow-lg">
+                BIG HUG SENT! 💗
+            </button>
+        </div>
     </div>
 
     <div id="slide4" class="slide">
-        <img src="gif3.gif" class="gif-frame">
-        <h1 class="text-4xl mb-4" style="font-family: 'Dancing Script'">A little note for you</h1>
-        <div onclick="next()" class="bg-white text-pink-600 p-10 rounded-2xl shadow-2xl cursor-pointer font-bold">
-            💌 Tap to open
+        <div class="text-center px-6 max-w-md w-full">
+            <img src="gif3.gif" class="gif-container w-72 h-72 mx-auto mb-10">
+            <h1 class="text-5xl text-white mb-12 signature">A little note for you...</h1>
+            <div onclick="next()" class="bg-gradient-to-br from-pink-50 to-pink-300 text-pink-700 p-14 rounded-[40px] shadow-[0_0_50px_rgba(255,20,147,0.5)] cursor-pointer font-black text-2xl transform hover:scale-105 transition-all">
+                <div class="text-5xl mb-3">💌</div>
+                TAP TO OPEN
+            </div>
         </div>
     </div>
 
     <div id="slide5" class="slide">
-        <img src="gif4.gif" class="gif-frame">
-        <h1 class="text-3xl font-bold px-10 text-center">You light up my entire world ✨</h1>
-        <div onclick="next()" class="glow-btn mt-8">Next 💖</div>
-    </div>
-
-    <div id="slide6" class="slide">
-        <img src="gif5.gif" class="gif-frame">
-        <h1 class="text-3xl font-bold px-10 text-center">My heart beats only for you...</h1>
-        <div onclick="next()" class="glow-btn mt-8">One more thing...</div>
-    </div>
-
-    <div id="slide7" class="slide">
-        <img src="gif6.gif" class="gif-frame">
-        <h1 class="text-4xl font-black mb-10 text-center px-5">Will you be my girlfriend? 🥺❤️</h1>
-        <div class="flex flex-col gap-5 w-64">
-            <button onclick="accept()" id="yesBtn" class="glow-btn text-2xl">YES! 💍</button>
-            <button onmouseover="moveNo()" id="noBtn" class="bg-gray-800 p-3 rounded-full">No</button>
+        <div class="text-center px-6 max-w-md">
+            <img src="gif4.gif" class="gif-container w-72 h-72 mx-auto mb-10">
+            <h1 class="text-4xl font-bold px-10 text-center leading-tight">You light up my <br><span class="text-yellow-400 neon-text">Entire World ✨</span></h1>
+            <p class="text-xl mt-8 font-semibold">Every single day, talking to you makes my life complete.</p>
+            <button onclick="next()" class="glow-button mt-12 bg-pink-600 py-4 px-12 rounded-full font-black tracking-widest">NEXT 💕</button>
         </div>
     </div>
 
-    <div id="slideFinal" class="slide">
-        <img src="gif7.gif" class="gif-frame">
-        <h1 class="text-5xl font-black text-pink-500 mb-5">Finally!!</h1>
-        <h2 class="text-3xl mb-10">She said YES! 🥳</h2>
-        <div onclick="playVideo()" class="glow-btn">Click for your Surprise 🎁</div>
+    <div id="slide6" class="slide">
+        <div class="text-center px-6 max-w-md relative">
+            <img src="gif6.gif" class="gif-container w-52 h-52 rounded-full border-4 border-pink-500 mx-auto mb-10 shadow-2xl object-cover">
+            <h1 class="text-5xl signature neon-text mb-14 leading-tight">Will you be my <br>Girlfriend? 🥺❤️</h1>
+            <div class="flex flex-col gap-8 w-80 mx-auto">
+                <button onclick="acceptProposal()" id="yesBtn" class="glow-button bg-gradient-to-r from-red-600 to-pink-500 text-white text-3xl font-black py-6 px-16 rounded-full shadow-2xl">
+                    YES! 💍
+                </button>
+                <button onmouseover="moveNo()" onclick="moveNo()" id="noBtn" class="bg-gray-800/80 text-gray-300 text-xl font-bold py-3 px-10 rounded-full transition-all">
+                    No 🙈
+                </button>
+            </div>
+            <div class="mt-16 signature text-3xl">Forever yours, Sivasingh 💗</div>
+        </div>
     </div>
 
-    <div id="finalVideoLayer">
-        <video id="mainVideo" src="video1.mp4" playsinline></video>
+    <div id="slide7" class="slide bg-black">
+        <div class="text-center px-6 max-w-md">
+            <div class="text-9xl mb-8">🎉💖🥳</div>
+            <h1 class="text-6xl font-black text-pink-500 mb-6 neon-text">Finally!!</h1>
+            <h2 class="text-4xl font-bold mb-14">She said YES! 🥹❤️</h2>
+            <button onclick="openVideo()" class="glow-button bg-pink-600 text-white text-2xl font-bold py-6 px-12 rounded-full animate-bounce tracking-wide shadow-[0_0_40px_#ff00cc]">
+                OPEN YOUR SURPRISE 🎁
+            </button>
+        </div>
+    </div>
+
+    <div id="videoLayer">
+        <video id="finalVideo" controls playsinline src="video1.mp4"></video>
+        <button onclick="location.reload()" class="absolute top-10 right-10 text-white bg-pink-600 px-8 py-3 rounded-full font-black shadow-lg">CLOSE X</button>
     </div>
 
     <script>
-        let step = 1;
-        let music = document.getElementById('bgMusic');
+        let currentStep = 1;
+        const music = document.getElementById('bgMusic');
 
-        function startProj() {
-            music.play();
+        // --- DYNAMIC TWINKLING STARS ---
+        function createStars() {
+            const container = document.getElementById('stars-background');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        function startExperience() {
+            music.play().catch(e => console.log("Audio play blocked"));
             next();
         }
 
         function next() {
-            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-            step++;
-            let nextId = step === 8 ? 'slideFinal' : 'slide' + step;
-            document.getElementById(nextId).classList.add('active');
+            document.querySelectorAll('.slide').forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
+            currentStep++;
+            const nextSlide = document.getElementById('slide' + currentStep);
+            if(nextSlide) {
+                nextSlide.style.display = 'flex';
+                setTimeout(() => nextSlide.classList.add('active'), 50);
+            }
         }
 
-        // Hold Logic
-        let holdInt;
-        let holdVal = 0;
-        const hBtn = document.getElementById('holdBtn');
+        // --- HOLD PROGRESS LOGIC ---
+        let holdTimer;
+        let progress = 0;
+        const holdBtn = document.getElementById('holdBtn');
         const hProg = document.getElementById('holdProgress');
+        const hHeart = document.getElementById('holdHeart');
 
-        hBtn.onmousedown = hBtn.ontouchstart = () => {
-            holdInt = setInterval(() => {
-                holdVal += 2;
-                hProg.style.width = holdVal + '%';
-                if(holdVal >= 100) { clearInterval(holdInt); next(); }
-            }, 30);
-        };
-        hBtn.onmouseup = hBtn.ontouchend = () => {
-            clearInterval(holdInt);
-            holdVal = 0;
-            hProg.style.width = '0%';
-        };
+        function startHold(e) {
+            e.preventDefault();
+            hHeart.style.transform = 'scale(1.5)';
+            holdTimer = setInterval(() => {
+                progress += 2.5;
+                hProg.style.width = progress + '%';
+                if(progress >= 100) { clearInterval(holdTimer); next(); }
+            }, 40);
+        }
+        function endHold() { clearInterval(holdTimer); progress = 0; hProg.style.width = '0%'; hHeart.style.transform = 'scale(1)'; }
 
+        holdBtn.addEventListener('mousedown', startHold);
+        holdBtn.addEventListener('touchstart', startHold);
+        window.addEventListener('mouseup', endHold);
+        window.addEventListener('touchend', endHold);
+
+        // --- FLOATING HEARTS ---
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            const emojis = ['💗', '❤️', '💕', '💖', '✨'];
+            heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            const duration = Math.random() * 3 + 5;
+            heart.style.animationDuration = duration + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+        setInterval(createHeart, 500);
+
+        // --- NO BUTTON DODGE ---
         function moveNo() {
             const btn = document.getElementById('noBtn');
-            btn.style.position = 'absolute';
-            btn.style.top = Math.random() * 80 + 'vh';
-            btn.style.left = Math.random() * 80 + 'vw';
+            const x = Math.random() * (window.innerWidth - 180);
+            const y = Math.random() * (window.innerHeight - 100);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px'; btn.style.top = y + 'px';
+            
+            const yes = document.getElementById('yesBtn');
+            const currentScale = yes.style.transform ? parseFloat(yes.style.transform.replace('scale(','')) : 1;
+            yes.style.transform = `scale(${currentScale + 0.15})`;
         }
 
-        function accept() {
-            // Blast Effect
-            for(let i=0; i<50; i++) {
-                let d = document.createElement('div');
-                d.innerHTML = "❤️";
-                d.style.position = "fixed";
-                d.style.left = "50%"; d.style.top = "50%";
-                d.style.transition = "1s";
-                document.body.appendChild(d);
-                setTimeout(() => {
-                    d.style.transform = `translate(${(Math.random()-0.5)*1000}px, ${(Math.random()-0.5)*1000}px) scale(3)`;
-                    d.style.opacity = 0;
-                }, 50);
+        // --- CONFETTI BLAST ---
+        function createBlast() {
+            for(let i=0; i<120; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                confche = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                conf.style.background = confche;
+                conf.style.left = '50%'; conf.style.top = '50%';
+                document.body.appendChild(conf);
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 150 + Math.random() * 350;
+                conf.animate([
+                    { transform: 'translate(0,0) scale(1)', opacity: 1 },
+                    { transform: `translate(${Math.cos(angle)*velocity}px, ${Math.sin(angle)*velocity}px) scale(0)`, opacity: 0 }
+                ], { duration: 1200, easing: 'ease-out' });
+                setTimeout(() => conf.remove(), 1200);
             }
-            setTimeout(next, 1000);
         }
 
-        function playVideo() {
-            music.pause(); // Music band ho jayegi
-            const layer = document.getElementById('finalVideoLayer');
-            const vid = document.getElementById('mainVideo');
-            layer.style.display = 'block';
-            vid.play();
+        function acceptProposal() { createBlast(); setTimeout(next, 900); }
+
+        function openVideo() {
+            music.pause();
+            document.getElementById('videoLayer').style.display = 'flex';
+            document.getElementById('finalVideo').play();
         }
     </script>
 </body>
